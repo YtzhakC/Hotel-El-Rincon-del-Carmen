@@ -211,7 +211,18 @@
                     <button class="bg-white text-blue-600 px-4 py-2 rounded shadow hover:bg-gray-200" onclick="location.href='registro.html'">Registro</button>
                     <button class="bg-white text-blue-600 px-4 py-2 rounded shadow hover:bg-gray-200" onclick="location.href='login.html'">Login</button>
                 `;
-                  
+                searchForm.textContent = ""
+                textos.innerHTML = `
+                
+            <h2 class="text-2xl font-bold mb-4 text-red-700">Error</h2>
+            <p class="mb-4">Debes iniciar sesión para usar la página de reservas.</p>
+            <button class="bg-blue-600 text-white px-4 py-2 rounded shadow hover:bg-gray-200" onclick="location.href='login.html'">Iniciar Sesión</button>
+            <button class="bg-blue-600 text-white px-4 py-2 rounded shadow hover:bg-gray-200" onclick="location.href='registro.html'">Registro</button>
+        
+    `
+
+
+                
             }
         });
 
