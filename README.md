@@ -1,0 +1,80 @@
+# El Rincón del Carmen - Sitio Web
+
+Este proyecto es un sitio web diseñado para el hotel **El Rincón del Carmen** con el objetivo de ampliar su presencia en línea, atraer más clientes y facilitar la gestión de reservas de habitaciones. El sitio web es sencillo, visualmente atractivo y funcional, centrado en la experiencia móvil pero adaptable a otros dispositivos.
+
+## Características Principales
+
+1. **Diseño Atractivo y Funcional**: 
+   - Landing page con carrusel de habitaciones, áreas del hotel y servicios destacados (comidas, spa, zonas húmedas).
+   - Interfaz intuitiva y fácil de navegar.
+
+2. **Responsive Design**:
+   - Optimización para dispositivos móviles.
+   - Adaptación para tablets y escritorios.
+
+3. **Páginas Clave**:
+   - **Inicio**: Presentación general del hotel y sus servicios.
+   - **Disponibilidad y Reservas**: Consulta de fechas, precios y detalles de habitaciones con posibilidad de reservar.
+   - **Contacto y Ubicación**: Información de dirección, mapas y formas de comunicación.
+
+4. **Botón de WhatsApp**:
+   - Presente en todas las páginas.
+   - Permite iniciar conversaciones con el hotel directamente.
+
+5. **Gestor de Reservas**:
+   - Búsqueda de disponibilidad basada en fechas, número de personas y servicios.
+   - Detalles claros de habitaciones (camas, servicios, precios y fechas disponibles).
+   - Registro y cancelación de reservas exclusivo para usuarios registrados.
+
+6. **Políticas Claras**:
+   - Hora de check-in: 14:00.
+   - Reserva efectiva hasta las 16:00 del día de check-in.
+   - Verificación de disponibilidad antes de registrar reservas.
+
+7. **Persistencia de Datos**:
+   - Uso de **json-server** como base de datos.
+
+8. **Despliegue y Control de Versiones**:
+   - Repositorio gestionado en **GitHub**.
+   - Despliegue en **GitHub Pages**.
+
+## Tecnologías Utilizadas
+
+- **HTML5** y **CSS3**: Estructura y estilos del sitio.
+- **JavaScript**: Interactividad y funcionalidades dinámicas.
+- **json-server**: Simulación del backend.
+- **GitHub Pages**: Hospedaje del sitio web.
+
+## Instrucciones de Instalación
+
+1. Clona este repositorio:
+   ```bash
+   git clone https://github.com/tu-usuario/el-rincon-del-carmen.git
+   ```
+
+2. Navega al directorio del proyecto:
+   ```bash
+   cd el-rincon-del-carmen
+   ```
+
+3. Instala json-server (si no está instalado):
+   ```bash
+   npm install -g json-server
+   ```
+
+4. Inicia el servidor:
+   ```bash
+   json-server --watch db.json
+   ```
+
+5. Abre el archivo `index.html` en tu navegador o despliega el proyecto en un servidor web.
+
+## Futuras Mejoras
+
+- Integración con pasarelas de pago.
+- Implementación de un sistema de opinión y calificación de clientes.
+- Mayor personalización en el diseño según las preferencias de usuarios.
+
+---
+
+¡Gracias por tu interés en este proyecto! Si tienes alguna duda o sugerencia, no dudes en contactarnos.
