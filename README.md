@@ -45,30 +45,6 @@ Este proyecto es un sitio web diseñado para el hotel **El Rincón del Carmen** 
 - **json-server**: Simulación del backend.
 - **GitHub Pages**: Hospedaje del sitio web.
 
-## Instrucciones de Instalación
-
-1. Clona este repositorio:
-   ```bash
-   git clone https://github.com/tu-usuario/el-rincon-del-carmen.git
-   ```
-
-2. Navega al directorio del proyecto:
-   ```bash
-   cd el-rincon-del-carmen
-   ```
-
-3. Instala json-server (si no está instalado):
-   ```bash
-   npm install -g json-server
-   ```
-
-4. Inicia el servidor:
-   ```bash
-   json-server --watch db.json
-   ```
-
-5. Abre el archivo `index.html` en tu navegador o despliega el proyecto en un servidor web.
-
 ## Futuras Mejoras
 
 - Integración con pasarelas de pago.
@@ -77,4 +53,4 @@ Este proyecto es un sitio web diseñado para el hotel **El Rincón del Carmen** 
 
 ---
 
-¡Gracias por tu interés en este proyecto! Si tienes alguna duda o sugerencia, no dudes en contactarnos.
+¡Gracias por el interés en este proyecto!

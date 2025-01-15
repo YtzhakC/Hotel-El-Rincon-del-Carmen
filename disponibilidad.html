@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel El Rincón del Carmen - Disponibilidad</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+        .room-card {
+            transition: all 0.3s ease-in-out;
+        }
+        .modal {
+            transition: opacity 0.3s ease-in-out;
+        }
+        .modal-content {
+            transition: transform 0.3s ease-in-out;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+    <nav class="bg-blue-600 text-white p-4 sticky top-0 shadow-md z-10">
+        <div class="container mx-auto flex justify-between items-center">
+            <div class="text-lg font-bold">Hotel El Rincón del Carmen</div>
+            <ul class="flex gap-6">
+                <li><a href="index.html" class="hover:underline">Inicio</a></li>
+                <li><a href="disponibilidad.html" class="hover:underline">Reservas</a></li>
+                <li><a href="ubicacion-y-contacto.html" class="hover:underline">Contacto</a></li>
+            </ul>
+            <div>
+                <button class="bg-white text-blue-600 px-4 py-2 rounded shadow hover:bg-gray-200 mr-9" onclick="location.href='login.html'">Login</button>
+                <button class="bg-white text-blue-600 px-4 py-2 rounded shadow hover:bg-gray-200"onclick="location.href='registro.html'">Registro</button>
+            </div>
+        </div>
+    </nav>
+    
+    <section id="habitaciones" class="bg-white py-16">
+        <div class="container mx-auto text-center">
+            <h1 class="text-4xl font-bold mb-6">Disponibilidad de Habitaciones</h1>
+            <div class="mb-6">
+                <select id="filterOptions" class="bg-white border border-gray-300 text-gray-700 py-2 px-4 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                    <option value="">Ordenar por</option>
+                    <option value="priceDesc">Precio: Mayor a menor</option>
+                    <option value="priceAsc">Precio: Menor a mayor</option>
+                    <option value="capacityDesc">Capacidad: Mayor a menor</option>
+                    <option value="capacityAsc">Capacidad: Menor a mayor</option>
+                </select>
+            </div>
+            <p class="text-lg mb-10">Explora nuestras habitaciones y encuentra la ideal para tu estancia.</p>
+
+            <!-- Contenedor de cartas -->
+            <div id="roomContainer" class="space-y-6">
+                <!-- Las habitaciones se cargarán aquí dinámicamente -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal de búsqueda -->
+    <div id="searchModal" class="modal fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 opacity-0 pointer-events-none">
+        <div class="modal-content bg-white p-8 rounded-lg shadow-xl transform scale-95 transition-transform duration-300">
+            <h2 class="text-2xl font-bold mb-4">Buscar Disponibilidad</h2>
+            <form id="searchForm" class="space-y-4">
+                <div>
+                    <label for="checkIn" class="block text-sm font-medium text-gray-700">Fecha de llegada</label>
+                    <input type="date" id="checkIn" name="checkIn" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
+                </div>
+                <div>
+                    <label for="checkOut" class="block text-sm font-medium text-gray-700">Fecha de salida</label>
+                    <input type="date" id="checkOut" name="checkOut" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
+                </div>
+                <div>
+                    <label for="guests" class="block text-sm font-medium text-gray-700">Número de huéspedes</label>
+                    <input type="number" id="guests" name="guests" min="1" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
+                </div>
+                <button type="submit" class="w-full bg-blue-600 text-white px-4 py-2 rounded shadow hover:bg-blue-700">Buscar</button>
+            </form>
+        </div>
+    </div>
+
+    <a href="https://wa.me/3194700704" target="_blank" class="fixed bottom-4 left-4 bg-green-500 text-white p-4 rounded-full shadow-lg hover:bg-green-600">
+        <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="40" viewBox="0 0 50 50">
+            <path d="M 25 2 C 12.309534 2 2 12.309534 2 25 C 2 29.079097 3.1186875 32.88588 4.984375 36.208984 L 2.0371094 46.730469 A 1.0001 1.0001 0 0 0 3.2402344 47.970703 L 14.210938 45.251953 C 17.434629 46.972929 21.092591 48 25 48 C 37.690466 48 48 37.690466 48 25 C 48 12.309534 37.690466 2 25 2 z M 25 4 C 36.609534 4 46 13.390466 46 25 C 46 36.609534 36.609534 46 25 46 C 21.278025 46 17.792121 45.029635 14.761719 43.333984 A 1.0001 1.0001 0 0 0 14.033203 43.236328 L 4.4257812 45.617188 L 7.0019531 36.425781 A 1.0001 1.0001 0 0 0 6.9023438 35.646484 C 5.0606869 32.523592 4 28.890107 4 25 C 4 13.390466 13.390466 4 25 4 z M 16.642578 13 C 16.001539 13 15.086045 13.23849 14.333984 14.048828 C 13.882268 14.535548 12 16.369511 12 19.59375 C 12 22.955271 14.331391 25.855848 14.613281 26.228516 L 14.615234 26.228516 L 14.615234 26.230469 C 14.588494 26.195329 14.973031 26.752191 15.486328 27.419922 C 15.999626 28.087653 16.717405 28.96464 17.619141 29.914062 C 19.422612 31.812909 21.958282 34.007419 25.105469 35.349609 C 26.554789 35.966779 27.698179 36.339417 28.564453 36.611328 C 30.169845 37.115426 31.632073 37.038799 32.730469 36.876953 C 33.55263 36.755876 34.456878 36.361114 35.351562 35.794922 C 36.246248 35.22873 37.12309 34.524722 37.509766 33.455078 C 37.786772 32.688244 37.927591 31.979598 37.978516 31.396484 C 38.003976 31.104927 38.007211 30.847602 37.988281 30.609375 C 37.969311 30.371148 37.989581 30.188664 37.767578 29.824219 C 37.302009 29.059804 36.774753 29.039853 36.224609 28.767578 C 35.918939 28.616297 35.048661 28.191329 34.175781 27.775391 C 33.303883 27.35992 32.54892 26.991953 32.083984 26.826172 C 31.790239 26.720488 31.431556 26.568352 30.914062 26.626953 C 30.396569 26.685553 29.88546 27.058933 29.587891 27.5 C 29.305837 27.918069 28.170387 29.258349 27.824219 29.652344 C 27.819619 29.649544 27.849659 29.663383 27.712891 29.595703 C 27.284761 29.383815 26.761157 29.203652 25.986328 28.794922 C 25.2115 28.386192 24.242255 27.782635 23.181641 26.847656 L 23.181641 26.845703 C 21.603029 25.455949 20.497272 23.711106 20.148438 23.125 C 20.171937 23.09704 20.145643 23.130901 20.195312 23.082031 L 20.197266 23.080078 C 20.553781 22.728924 20.869739 22.309521 21.136719 22.001953 C 21.515257 21.565866 21.68231 21.181437 21.863281 20.822266 C 22.223954 20.10644 22.02313 19.318742 21.814453 18.904297 L 21.814453 18.902344 C 21.828863 18.931014 21.701572 18.650157 21.564453 18.326172 C 21.426943 18.001263 21.251663 17.580039 21.064453 17.130859 C 20.690033 16.232501 20.272027 15.224912 20.023438 14.634766 L 20.023438 14.632812 C 19.730591 13.937684 19.334395 13.436908 18.816406 13.195312 C 18.298417 12.953717 17.840778 13.022402 17.822266 13.021484 L 17.820312 13.021484 C 17.450668 13.004432 17.045038 13 16.642578 13 z M 16.642578 15 C 17.028118 15 17.408214 15.004701 17.726562 15.019531 C 18.054056 15.035851 18.033687 15.037192 17.970703 15.007812 C 17.906713 14.977972 17.993533 14.968282 18.179688 15.410156 C 18.423098 15.98801 18.84317 16.999249 19.21875 17.900391 C 19.40654 18.350961 19.582292 18.773816 19.722656 19.105469 C 19.863021 19.437122 19.939077 19.622295 20.027344 19.798828 L 20.027344 19.800781 L 20.029297 19.802734 C 20.115837 19.973483 20.108185 19.864164 20.078125 19.923828 C 19.867096 20.342656 19.838461 20.445493 19.625 20.691406 C 19.29998 21.065838 18.968453 21.483404 18.792969 21.65625 C 18.639439 21.80707 18.36242 22.042032 18.189453 22.501953 C 18.016221 22.962578 18.097073 23.59457 18.375 24.066406 C 18.745032 24.6946 19.964406 26.679307 21.859375 28.347656 C 23.05276 29.399678 24.164563 30.095933 25.052734 30.564453 C 25.940906 31.032973 26.664301 31.306607 26.826172 31.386719 C 27.210549 31.576953 27.630655 31.72467 28.119141 31.666016 C 28.607627 31.607366 29.02878 31.310979 29.296875 31.007812 L 29.298828 31.005859 C 29.655629 30.601347 30.715848 29.390728 31.224609 28.644531 C 31.246169 28.652131 31.239109 28.646231 31.408203 28.707031 L 31.408203 28.708984 L 31.410156 28.708984 C 31.487356 28.736474 32.454286 29.169267 33.316406 29.580078 C 34.178526 29.990889 35.053561 30.417875 35.337891 30.558594 C 35.748225 30.761674 35.942113 30.893881 35.992188 30.894531 C 35.995572 30.982516 35.998992 31.07786 35.986328 31.222656 C 35.951258 31.624292 35.8439 32.180225 35.628906 32.775391 C 35.523582 33.066746 34.975018 33.667661 34.283203 34.105469 C 33.591388 34.543277 32.749338 34.852514 32.4375 34.898438 C 31.499896 35.036591 30.386672 35.087027 29.164062 34.703125 C 28.316336 34.437036 27.259305 34.092596 25.890625 33.509766 C 23.114812 32.325956 20.755591 30.311513 19.070312 28.537109 C 18.227674 27.649908 17.552562 26.824019 17.072266 26.199219 C 16.592866 25.575584 16.383528 25.251054 16.208984 25.021484 L 16.207031 25.019531 C 15.897202 24.609805 14 21.970851 14 19.59375 C 14 17.077989 15.168497 16.091436 15.800781 15.410156 C 16.132721 15.052495 16.495617 15 16.642578 15 z"></path>
+            </svg>
+    </a>
+
+    <script>
+        const rooms = [
+    {
+        name: "Suite Celestial",
+        description: "Una experiencia de lujo con vistas panorámicas al cielo estrellado.",
+        internet: true,
+        jacuzzi: true,
+        minibar: true,
+        bathrooms: 2,
+        capacity: 4,
+        price: 450,
+        image: "https://images.trvl-media.com/lodging/1000000/900000/897400/897380/7e0f1ec4.jpg?impolicy=resizecrop&rw=1200&ra=fit"
+    },
+    {
+        name: "Cabaña del Bosque",
+        description: "Sumérjase en la naturaleza con esta acogedora cabaña rústica.",
+        internet: true,
+        jacuzzi: false,
+        minibar: true,
+        bathrooms: 1,
+        capacity: 2,
+        price: 180,
+        image: "https://images.trvl-media.com/lodging/1000000/40000/34300/34244/5985d42d.jpg?impolicy=resizecrop&rw=1200&ra=fit"
+    },
+    {
+        name: "Loft Urbano",
+        description: "Diseño moderno y minimalista para el viajero contemporáneo.",
+        internet: true,
+        jacuzzi: false,
+        minibar: true,
+        bathrooms: 1,
+        capacity: 2,
+        price: 200,
+        image: "https://www.anayjose.com/media/uploads/galeriahabitaciones/twobedroomj.jpg?q=pr:sharp/rs:fill/w:1200/h:500/f:jpg"
+    },
+    {
+        name: "Suite Familiar Deluxe",
+        description: "Amplio espacio para que toda la familia disfrute con comodidad.",
+        internet: true,
+        jacuzzi: true,
+        minibar: true,
+        bathrooms: 3,
+        capacity: 8,
+        price: 600,
+        image: "https://cache.marriott.com/content/dam/marriott-renditions/dm-static-renditions/jw/us-canada/hws/m/mrkfl/en_us/photo/unlimited/assets/jw-mrkfl-corner-suite-40445-classic-hor.jpg"
+    },
+    {
+        name: "Habitación Zen",
+        description: "Un oasis de tranquilidad con decoración inspirada en la filosofía oriental.",
+        internet: true,
+        jacuzzi: true,
+        minibar: false,
+        bathrooms: 1,
+        capacity: 2,
+        price: 280,
+        image: "https://images.trvl-media.com/lodging/42000000/41820000/41815500/41815407/b11e06f6.jpg?impolicy=resizecrop&rw=1200&ra=fit"
+    },
+    {
+        name: "Suite Presidencial",
+        description: "Lo mejor en lujo y confort para una estancia inolvidable.",
+        internet: true,
+        jacuzzi: true,
+        minibar: true,
+        bathrooms: 4,
+        capacity: 6,
+        price: 1200,
+        image: "https://image-tc.galaxy.tf/wijpeg-20bpajtgubj2n0ootk6khvehu/urv4218-m-ok_wide.jpg?width=1200&crop=0%2C78%2C1500%2C844"
+    },
+    {
+        name: "Habitación Eco-Friendly",
+        description: "Diseñada con materiales sostenibles para el viajero consciente del medio ambiente.",
+        internet: true,
+        jacuzzi: false,
+        minibar: false,
+        bathrooms: 1,
+        capacity: 3,
+        price: 220,
+        image: "https://es.ncl.com/sites/default/files/Suites.DlxOwn1.jpg"
+    },
+    {
+        name: "Suite Romántica",
+        description: "El escenario perfecto para una escapada romántica.",
+        internet: true,
+        jacuzzi: true,
+        minibar: true,
+        bathrooms: 1,
+        capacity: 2,
+        price: 350,
+        image: "https://images.trvl-media.com/lodging/1000000/20000/11000/10961/c7613f65.jpg?impolicy=resizecrop&rw=1200&ra=fit"
+    },
+    {
+        name: "Ático de Lujo",
+        description: "Vistas impresionantes de la ciudad desde este lujoso ático.",
+        internet: true,
+        jacuzzi: true,
+        minibar: true,
+        bathrooms: 2,
+        capacity: 4,
+        price: 550,
+        image: "https://images.trvl-media.com/lodging/39000000/38290000/38284800/38284790/e14c8031.jpg?impolicy=resizecrop&rw=1200&ra=fit"
+    },
+    {
+        name: "Habitación Ejecutiva",
+        description: "Perfecta para viajes de negocios con área de trabajo ergonómica.",
+        internet: true,
+        jacuzzi: false,
+        minibar: true,
+        bathrooms: 1,
+        capacity: 1,
+        price: 180,
+        image: "https://www.anayjose.com/media/uploads/galeriahabitaciones/twobedroomd.jpg?q=pr:sharp/rs:fill/w:1200/h:500/f:jpg"
+    },
+    {
+        name: "Suite del Artista",
+        description: "Inspiradora y creativa, ideal para aquellos con alma artística.",
+        internet: true,
+        jacuzzi: false,
+        minibar: true,
+        bathrooms: 1,
+        capacity: 2,
+        price: 260,
+        image: "https://cache.marriott.com/content/dam/marriott-renditions/MRKFL/mrkfl-suite-0284-hor-clsc.jpg"
+    },
+    {
+        name: "Bungalow Playero",
+        description: "A pasos de la playa, perfecto para los amantes del sol y el mar.",
+        internet: true,
+        jacuzzi: false,
+        minibar: true,
+        bathrooms: 1,
+        capacity: 4,
+        price: 320,
+        image: "https://images.trvl-media.com/lodging/38000000/37890000/37881500/37881452/8fb61967.jpg?impolicy=resizecrop&rw=1200&ra=fit"
+    },
+    {
+        name: "Suite Deportiva",
+        description: "Con gimnasio privado para mantener tu rutina de ejercicios.",
+        internet: true,
+        jacuzzi: true,
+        minibar: true,
+        bathrooms: 2,
+        capacity: 2,
+        price: 400,
+        image: "https://image-tc.galaxy.tf/wijpeg-e6pi9ll7wkmtyoxosfgju8opy/urv4229-m-ok_wide.jpg?crop=0%2C78%2C1500%2C844&width=1140"
+    },
+    {
+        name: "Habitación Vintage",
+        description: "Un viaje al pasado con decoración retro de los años 50.",
+        internet: true,
+        jacuzzi: false,
+        minibar: true,
+        bathrooms: 1,
+        capacity: 2,
+        price: 240,
+        image: "https://es.ncl.com/sites/default/files/Suites.FamilySuite1.jpg"
+    },
+    {
+        name: "Suite Tecnológica",
+        description: "Equipada con lo último en tecnología para el entusiasta de la electrónica.",
+        internet: true,
+        jacuzzi: false,
+        minibar: true,
+        bathrooms: 1,
+        capacity: 2,
+        price: 300,
+        image: "https://billiken.lat/wp-content/uploads/2024/05/cuerpo-8-7.jpg"
+    },
+    {
+        name: "Cabaña de Montaña",
+        description: "Acogedora y rústica, perfecta para los amantes de la naturaleza.",
+        internet: true,
+        jacuzzi: true,
+        minibar: false,
+        bathrooms: 1,
+        capacity: 4,
+        price: 280,
+        image: "https://media.revistaad.es/photos/65c21a5605ba5d3cad2a23ba/16:9/w_3488,h_1962,c_limit/atr.royalmansion-bedroom2-mr.jpg"
+    },
+    {
+        name: "Glamping de Lujo",
+        description: "Una experiencia de campamento con todas las comodidades modernas.",
+        internet: true,
+        jacuzzi: false,
+        minibar: false,
+        bathrooms: 1,
+        capacity: 2,
+        price: 300,
+        image: "https://www.kayak.com.mx/rimg/himg/a8/ea/45/revato-164798-12856183-550068.jpg?width=1366&height=768&crop=true"
+    },
+    {
+        name: "Cueva Moderna",
+        description: "Hospédese en una cueva adaptada con diseño moderno.",
+        internet: true,
+        jacuzzi: true,
+        minibar: true,
+        bathrooms: 1,
+        capacity: 2,
+        price: 380,
+        image: "https://www.kayak.com.do/rimg/himg/43/29/e2/ice-64843-107022290-371407.jpg?width=1366&height=768&crop=true"
+    },
+    {
+        name: "Habitación Minimalista",
+        description: "Espacio sencillo y funcional, ideal para los amantes de lo esencial.",
+        internet: true,
+        jacuzzi: false,
+        minibar: false,
+        bathrooms: 1,
+        capacity: 2,
+        price: 190,
+        image: "https://www.momondo.cl/himg/be/36/05/leonardo-2678590-Mandarin_Oriental_s_Club_Lounge_O-232422.jpg"
+    },
+    {
+        name: "Ático Artístico",
+        description: "Con vistas increíbles y decoración con piezas de arte.",
+        internet: true,
+        jacuzzi: true,
+        minibar: true,
+        bathrooms: 2,
+        capacity: 3,
+        price: 500,
+        image: "https://voyageursintrepides.com/wp-content/uploads/2023/05/plus-beaux-hotels-luxe-5-etoiles-kuala-lumpur.jpg"
+    },
+    {
+        name: "Suite Nórdica",
+        description: "Inspirada en el diseño escandinavo, perfecta para una escapada acogedora.",
+        internet: true,
+        jacuzzi: true,
+        minibar: true,
+        bathrooms: 2,
+        capacity: 4,
+        price: 420,
+        image: "https://media.admagazine.com/photos/65b927c2857395e101a7a54b/master/w_1600%2Cc_limit/atr.royalmansion-majlis-mr.jpg"
+    },
+    {
+        name: "Habitación Submarina",
+        description: "Vistas al océano desde un refugio bajo el agua.",
+        internet: true,
+        jacuzzi: true,
+        minibar: true,
+        bathrooms: 1,
+        capacity: 2,
+        price: 700,
+        image: "https://media.revistaad.es/photos/65c21a5605ba5d3cad2a23ba/16:9/w_2560%2Cc_limit/atr.royalmansion-bedroom2-mr.jpg"
+    },
+    {
+        name: "Casa del Árbol",
+        description: "Una experiencia única en las alturas, rodeado de naturaleza.",
+        internet: true,
+        jacuzzi: false,
+        minibar: false,
+        bathrooms: 1,
+        capacity: 2,
+        price: 270,
+        image: "https://media.ambito.com/p/0c5616e28bf58d0403a76b5cc372f420/adjuntos/239/imagenes/036/681/0036681201/1200x675/smart/2jpg.jpg"
+    },
+    {
+        name: "Suite Bohemia",
+        description: "Decoración artística y bohemia para una experiencia única.",
+        internet: true,
+        jacuzzi: true,
+        minibar: true,
+        bathrooms: 1,
+        capacity: 2,
+        price: 350,
+        image: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/2c/29/81/46/437661-guest-room.jpg?w=1200&h=-1&s=1"
+    },
+    {
+        name: "Habitación Étnica",
+        description: "Diseños únicos y auténticos de culturas ancestrales.",
+        internet: true,
+        jacuzzi: false,
+        minibar: false,
+        bathrooms: 1,
+        capacity: 2,
+        price: 230,
+        image: "https://s3.amazonaws.com/arc-wordpress-client-uploads/infobae-wp/wp-content/uploads/2019/05/20152451/Mandarin-Oriental-Hong-Kong-3.jpg"
+    }
+];
+
+
+
+
+
+        function showModal() {
+            const modal = document.getElementById('searchModal');
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+            modal.querySelector('.modal-content').classList.remove('scale-95');
+            modal.querySelector('.modal-content').classList.add('scale-100');
+        }
+
+        function hideModal() {
+            const modal = document.getElementById('searchModal');
+            modal.classList.add('opacity-0', 'pointer-events-none');
+            modal.querySelector('.modal-content').classList.remove('scale-100');
+            modal.querySelector('.modal-content').classList.add('scale-95');
+        }
+
+        function filterRooms(guests, sortOption) {
+            let filteredRooms = rooms.filter(room => room.capacity >= guests);
+    
+            switch(sortOption) {
+                case 'priceDesc':
+                    filteredRooms.sort((a, b) => b.price - a.price);
+                    break;
+                case 'priceAsc':
+                    filteredRooms.sort((a, b) => a.price - b.price);
+                    break;
+                case 'capacityDesc':
+                    filteredRooms.sort((a, b) => b.capacity - a.capacity);
+                    break;
+                case 'capacityAsc':
+                    filteredRooms.sort((a, b) => a.capacity - b.capacity);
+                    break;
+            }
+    
+            return filteredRooms;
+        }
+
+        function displayRooms(filteredRooms, checkIn, checkOut, guests) {
+            const container = document.getElementById('roomContainer');
+            container.innerHTML = '';
+
+            filteredRooms.forEach(room => {
+                const nights = (new Date(checkOut) - new Date(checkIn)) / (1000 * 60 * 60 * 24);
+                const totalPrice = room.price * nights;
+
+                const roomElement = document.createElement('div');
+                roomElement.className = 'room-card bg-gray-100 p-6 rounded shadow-md flex items-start space-x-6';
+                roomElement.innerHTML = `
+                    <img src="${room.image}" alt="${room.name}" class="w-1/4 h-48 object-cover rounded-lg" onerror="handleImageError(this)">
+                    <div class="flex-1 space-y-4">
+                        <h2 class="font-bold text-2xl">${room.name}</h2>
+                        <p class="text-gray-600">${room.description}</p>
+                        <div class="grid grid-cols-2 gap-2 text-sm">
+                            <p>Internet: ${room.internet ? 'Sí' : 'No'}</p>
+                            <p>Jacuzzi: ${room.jacuzzi ? 'Sí' : 'No'}</p>
+                            <p>Minibar: ${room.minibar ? 'Sí' : 'No'}</p>
+                            <p>Baños: ${room.bathrooms}</p>
+                            <p>Capacidad: ${room.capacity} Personas</p>
+                            <p>Precio por noche: $${room.price} USD</p>
+                        </div>
+                        <div class="text-lg font-semibold">Precio total: $${totalPrice} USD</div>
+                        <p class="text-sm text-gray-600">Para ${guests} personas, ${nights} noches (${checkIn} - ${checkOut})</p>
+                        <button class="bg-blue-600 text-white px-6 py-2 rounded shadow hover:bg-blue-700">Reservar</button>
+                    </div>
+                `;
+                container.appendChild(roomElement);
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            showModal();
+
+            const searchForm = document.getElementById('searchForm');
+            const filterOptions = document.getElementById('filterOptions');
+
+            searchForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                performSearch();
+            });
+
+            filterOptions.addEventListener('change', performSearch);
+
+            function performSearch() {
+                const checkIn = document.getElementById('checkIn').value;
+                const checkOut = document.getElementById('checkOut').value;
+                const guests = parseInt(document.getElementById('guests').value);
+                const sortOption = filterOptions.value;
+
+                const filteredRooms = filterRooms(guests, sortOption);
+                displayRooms(filteredRooms, checkIn, checkOut, guests);
+                hideModal();
+            }
+        });
+
+        function handleImageError(img) {
+            img.onerror = null;
+            img.src = '/placeholder.svg?height=192&width=256';
+        }
+    </script>
+</body>
+</html>
+
