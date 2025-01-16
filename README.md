@@ -53,4 +53,10 @@ Este proyecto es un sitio web diseñado para el hotel **El Rincón del Carmen** 
 
 ---
 
-¡Proyecto Finalizado!, Gracias por el interés en este proyecto!
+```
+¡Proyecto Finalizado!
+
+Muchas Gracias.
+
+- Ytzhak Carvajal ;)
+```

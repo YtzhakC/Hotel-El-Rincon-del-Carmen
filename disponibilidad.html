@@ -18,6 +18,69 @@
         .modal-content {
             transition: transform 0.3s ease-in-out;
         }
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+        }
+        .bar {
+            display: block;
+            width: 25px;
+            height: 3px;
+            margin: 5px auto;
+            transition: all 0.3s ease-in-out;
+            background-color: white;
+        }
+        @media (max-width: 768px) {
+            .hamburger {
+                display: block;
+            }
+            .nav-menu {
+                position: fixed;
+                top: 4vh;
+                left: -100%;
+                width: 100%;
+                background-color: #2563eb;
+                text-align: center;
+                transition: 0.3s ease-in-out;
+                z-index: 10;
+            }
+            .nav-menu.active {
+                left: 0;
+                display: flex;
+                flex-direction: column;
+            }
+            #navButtons {
+                position: fixed;
+                top: 21vh;
+                left: -100%;
+                width: 100%;
+                background-color: #2563eb;
+                text-align: center;
+                transition: 0.3s ease-in-out;
+                z-index: 10;
+            }
+            #navButtons.active {
+                left: 0;
+                display: flex;
+                flex-direction: column;
+            }
+            .nav-item {
+                margin: 16px 0;
+            }
+            .desktop-only {
+                display: none;
+            }
+            .hamburger.active .bar:nth-child(2) {
+                opacity: 0;
+            }
+            .hamburger.active .bar:nth-child(1) {
+                transform: translateY(8px) rotate(45deg);
+            }
+            .hamburger.active .bar:nth-child(3) {
+                transform: translateY(-8px) rotate(-45deg);
+            }
+        }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800">
@@ -25,19 +88,24 @@
     <nav class="bg-blue-600 text-white p-4 sticky top-0 shadow-md z-10">
         <div class="container mx-auto flex justify-between items-center">
             <div class="text-lg font-bold">Hotel El Rincón del Carmen</div>
-            <ul class="flex gap-6">
-                <li><a href="index.html" class="hover:underline">Inicio</a></li>
-                <li><a href="disponibilidad.html" class="hover:underline">Reservas</a></li>
-                <li><a href="ubicacion-y-contacto.html" class="hover:underline">Contacto</a></li>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+            <ul class="nav-menu flex flex-wrap gap-2 sm:gap-2">
+                <li class="nav-item"><a href="index.html" class="hover:underline">Inicio</a></li>
+                <li class="nav-item"><a href="disponibilidad.html" class="hover:underline">Reservas</a></li>
+                <li class="nav-item"><a href="ubicacion-y-contacto.html" class="hover:underline">Contacto</a></li>
             </ul>
-            <ul id="navButtons" class="flex gap-6">
+            <ul id="navButtons" class="flex gap-2 sm:gap-2">
                 <!-- Los botones se cargarán dinámicamente aquí -->
             </ul>
         </div>
     </nav>
     
     <section id="habitaciones" class="bg-white py-16">
-        <div class="container mx-auto text-center">
+        <div class="container mx-auto text-center px-4 sm:px-6">
             <h1 class="text-4xl font-bold mb-6">Disponibilidad de Habitaciones</h1>
             <div class="mb-6">
                 <select id="filterOptions" class="bg-white border border-gray-300 text-gray-700 py-2 px-4 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
@@ -51,16 +119,16 @@
             <p class="text-lg mb-10">Explora nuestras habitaciones y encuentra la ideal para tu estancia.</p>
 
             <!-- Contenedor de cartas -->
-            <div id="roomContainer" class="space-y-6">
+            <div id="roomContainer" class="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
                 <!-- Las habitaciones se cargarán aquí dinámicamente -->
             </div>
         </div>
     </section>
 
     <!-- Modal de búsqueda -->
-    <div id="searchModal" class="modal fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 opacity-0 pointer-events-none">
-        <div class="modal-content bg-white p-8 rounded-lg shadow-xl transform scale-95 transition-transform duration-300 pop-up">
-            <h2 class="text-2xl font-bold mb-4 textos">Buscar Disponibilidad</h2>
+    <div id="searchModal" class="modal fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 opacity-0 pointer-events-none pl-4 pr-4">
+        <div class="modal-content bg-white p-8 rounded-lg shadow-xl transform scale-95 transition-transform duration-300 w-full max-w-sm">
+            <h2 class="text-2xl font-bold mb-4">Buscar Disponibilidad</h2>
             <form id="searchForm" class="space-y-4">
                 <div>
                     <label for="checkIn" class="block text-sm font-medium text-gray-700">Fecha de llegada</label>
@@ -83,7 +151,7 @@
     <div id="importantInfoModal" class="modal fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 opacity-0 pointer-events-none">
         <div class="modal-content bg-white p-8 rounded-lg shadow-xl transform scale-95 transition-transform duration-300 w-full max-w-md">
             <h2 class="text-3xl font-bold mb-4 text-red-600">¡IMPORTANTE!</h2>
-            <p class="mb-4">La hora de check in a las habitaciones será a las 14:00 del día. Si el usuario no hace efectiva la reserva dos horas después de que inicie el check in (16:00) la habitación quedará disponible para que otra persona la pueda tomar.</p>
+            <p class="mb-4">La hora de check in a las habitaciones será a las 14:00 del día...</p>
             <div class="flex items-center mb-4">
                 <input type="checkbox" id="termsCheckbox" class="mr-2">
                 <label for="termsCheckbox">Acepto los términos y condiciones</label>
@@ -159,27 +227,61 @@
             const roomElement = document.createElement('div');
             roomElement.className = 'room-card bg-gray-100 p-6 rounded shadow-md flex items-start space-x-6';
             roomElement.innerHTML = `
-                <img src="${room.image}" alt="${room.name}" class="w-1/4 h-48 object-cover rounded-lg" onerror="handleImageError(this)">
-                <div class="flex-1 space-y-4">
-                    <h2 class="font-bold text-2xl">${room.name}</h2>
-                    <p class="text-gray-600">${room.description}</p>
-                    <div class="grid grid-cols-2 gap-2 text-sm">
-                        <p>Internet: ${room.internet ? 'Sí' : 'No'}</p>
-                        <p>Jacuzzi: ${room.jacuzzi ? 'Sí' : 'No'}</p>
-                        <p>Minibar: ${room.minibar ? 'Sí' : 'No'}</p>
-                        <p>Baños: ${room.bathrooms}</p>
-                        <p>Capacidad: ${room.capacity} Personas</p>
-                        <p>Camas: ${room.beds} Camas</p> 
-                        <p>Precio por noche: $${room.price} USD</p>
-                    </div>
-                    <div class="text-lg font-semibold">Precio total: $${totalPrice} USD</div>
-                    <p class="text-sm text-gray-600">Para ${guests} personas, ${nights} noches (${checkIn} - ${checkOut})</p>
-                    ${room.status === 'available' 
-                        ? `<button class="bg-blue-600 text-white px-6 py-2 rounded shadow hover:bg-blue-700" onclick="showImportantInfoModal('${room.id}', ${totalPrice})">Reservar</button>`
-                        : `<button class="bg-gray-600 text-white px-6 py-2 rounded shadow cursor-not-allowed" disabled>Habitación ya reservada</button>`
-                    }
-                </div>
-            `;
+    <div class="flex flex-col rounded-lg shadow-lg overflow-hidden">
+        <!-- Imagen -->
+        <img 
+            src="${room.image}" 
+            alt="${room.name}" 
+            class="w-full h-64 object-cover" 
+            onerror="handleImageError(this)"
+        >
+        
+        <!-- Información -->
+        <div class="p-4 space-y-4">
+            <!-- Título -->
+            <h2 class="font-bold text-2xl">${room.name}</h2>
+
+            <!-- Descripción -->
+            <p class="text-gray-600">${room.description}</p>
+
+            <!-- Detalles en grid -->
+            <div class="grid grid-cols-2 gap-2 text-sm">
+                <p>Internet: ${room.internet ? 'Sí' : 'No'}</p>
+                <p>Jacuzzi: ${room.jacuzzi ? 'Sí' : 'No'}</p>
+                <p>Minibar: ${room.minibar ? 'Sí' : 'No'}</p>
+                <p>Baños: ${room.bathrooms}</p>
+                <p>Capacidad: ${room.capacity} Personas</p>
+                <p>Camas: ${room.beds} Camas</p> 
+                <p>Precio por noche: $${room.price} USD</p>
+            </div>
+
+            <!-- Precio total -->
+            <div class="text-lg font-semibold">
+                Precio total: $${totalPrice} USD
+            </div>
+
+            <!-- Información adicional -->
+            <p class="text-sm text-gray-600">
+                Para ${guests} personas, ${nights} noches (${checkIn} - ${checkOut})
+            </p>
+
+            <!-- Botón -->
+            ${
+                room.status === 'available' 
+                    ? `<button 
+                        class="bg-blue-600 text-white px-6 py-2 rounded shadow hover:bg-blue-700 w-full"
+                        onclick="showImportantInfoModal('${room.id}', ${totalPrice})">
+                        Reservar
+                    </button>`
+                    : `<button 
+                        class="bg-gray-600 text-white px-6 py-2 rounded shadow cursor-not-allowed w-full" 
+                        disabled>
+                        Habitación ya reservada
+                    </button>`
+            }
+        </div>
+    </div>
+`;
             container.appendChild(roomElement);
         });
     }
@@ -195,24 +297,61 @@
             const roomElement = document.createElement('div');
             roomElement.className = 'room-card bg-gray-100 p-6 rounded shadow-md flex items-start space-x-6';
             roomElement.innerHTML = `
-                <img src="${room.image}" alt="${room.name}" class="w-1/4 h-48 object-cover rounded-lg" onerror="handleImageError(this)">
-                <div class="flex-1 space-y-4">
-                    <h2 class="font-bold text-2xl">${room.name}</h2>
-                    <p class="text-gray-600">${room.description}</p>
-                    <div class="grid grid-cols-2 gap-2 text-sm">
-                        <p>Internet: ${room.internet ? 'Sí' : 'No'}</p>
-                        <p>Jacuzzi: ${room.jacuzzi ? 'Sí' : 'No'}</p>
-                        <p>Minibar: ${room.minibar ? 'Sí' : 'No'}</p>
-                        <p>Baños: ${room.bathrooms}</p>
-                        <p>Capacidad: ${room.capacity} Personas</p>
-                        <p>Camas: ${room.beds} Camas</p> 
-                        <p>Precio por noche: $${room.price} USD</p>
-                    </div>
-                    <div class="text-lg font-semibold">Precio total: $${totalPrice} USD</div>
-                    <p class="text-sm text-gray-600">Para ${guests} personas, ${nights} noches (${checkIn} - ${checkOut})</p>
-                    <button class="bg-blue-600 text-white px-6 py-2 rounded shadow hover:bg-blue-700" onclick="location.href='login.html'">Iniciar Sesión</button>
-                </div>
-            `;
+    <div class="flex flex-col rounded-lg shadow-lg overflow-hidden">
+        <!-- Imagen -->
+        <img 
+            src="${room.image}" 
+            alt="${room.name}" 
+            class="w-full h-64 object-cover" 
+            onerror="handleImageError(this)"
+        >
+        
+        <!-- Información -->
+        <div class="p-4 space-y-4">
+            <!-- Título -->
+            <h2 class="font-bold text-2xl">${room.name}</h2>
+
+            <!-- Descripción -->
+            <p class="text-gray-600">${room.description}</p>
+
+            <!-- Detalles en grid -->
+            <div class="grid grid-cols-2 gap-2 text-sm">
+                <p>Internet: ${room.internet ? 'Sí' : 'No'}</p>
+                <p>Jacuzzi: ${room.jacuzzi ? 'Sí' : 'No'}</p>
+                <p>Minibar: ${room.minibar ? 'Sí' : 'No'}</p>
+                <p>Baños: ${room.bathrooms}</p>
+                <p>Capacidad: ${room.capacity} Personas</p>
+                <p>Camas: ${room.beds} Camas</p> 
+                <p>Precio por noche: $${room.price} USD</p>
+            </div>
+
+            <!-- Precio total -->
+            <div class="text-lg font-semibold">
+                Precio total: $${totalPrice} USD
+            </div>
+
+            <!-- Información adicional -->
+            <p class="text-sm text-gray-600">
+                Para ${guests} personas, ${nights} noches (${checkIn} - ${checkOut})
+            </p>
+
+            <!-- Botón -->
+            ${
+                room.status === 'available' 
+                    ? `<button 
+                        class="bg-blue-600 text-white px-6 py-2 rounded shadow hover:bg-blue-700 w-full"
+                        onclick="location.href='login.html'">
+                        Iniciar Sesión
+                    </button>`
+                    : `<button 
+                        class="bg-gray-600 text-white px-6 py-2 rounded shadow cursor-not-allowed w-full" 
+                        disabled>
+                        Habitación ya reservada
+                    </button>`
+            }
+        </div>
+    </div>
+`;
             container.appendChild(roomElement);
         });
     }
@@ -365,10 +504,99 @@
         });
     });
 
-    function logout() {
-        localStorage.removeItem('user');
-        location.href = 'index.html';
-    }
+    document.addEventListener('DOMContentLoaded', async function () {
+            const user = JSON.parse(localStorage.getItem('user'));
+            const navButtons = document.getElementById('navButtons');
+            const hamburger = document.querySelector(".hamburger");
+            const navMenu = document.querySelector(".nav-menu");
+            const navButtonsMenu = document.getElementById("navButtons");
+    
+            // Actualizar los botones de navegación
+            function updateNavButtons() {
+                if (user) {
+                    navButtons.innerHTML = `
+                        <li class="nav-item text-white pt-3 desktop-only">Bienvenid@, ${user.nombre}</li>
+                        <li class="nav-item"><button class="bg-white text-blue-600 px-4 py-2 rounded shadow hover:bg-gray-200" onclick="logout()">Cerrar sesión</button></li>
+                        <li class="nav-item"><button class="bg-white text-blue-600 px-4 py-2 rounded shadow hover:bg-gray-200" onclick="location.href='panel-usuario.html'">Panel de Usuario</button></li>
+                    `;
+                } else {
+                    navButtons.innerHTML = `
+                        <li class="nav-item"><button class="bg-white text-blue-600 px-4 py-2 rounded shadow hover:bg-gray-200" onclick="location.href='registro.html'">Registro</button></li>
+                        <li class="nav-item"><button class="bg-white text-blue-600 px-4 py-2 rounded shadow hover:bg-gray-200" onclick="location.href='login.html'">Login</button></li>
+                    `;
+                }
+            }
+    
+            // Llamar a funciones adicionales si el usuario está presente
+            if (user) {
+                await fetchRooms();
+                await fetchUserReservations();
+            } else if (document.getElementById('userReservations')) {
+                document.getElementById('userReservations').innerHTML = '<p class="text-xl">Por favor, inicia sesión para ver tus reservas.</p>';
+            }
+    
+            // Manejar el evento de eliminar cuenta si el botón existe
+            const deleteAccountBtn = document.getElementById('deleteAccountBtn');
+            if (deleteAccountBtn) {
+                deleteAccountBtn.addEventListener('click', deleteAccount);
+            }
+    
+            // Funcionalidad del menú hamburguesa
+            function toggleMenu() {
+                hamburger.classList.toggle("active");
+                navMenu.classList.toggle("active");
+                navButtonsMenu.classList.toggle("active");
+            }
+    
+            hamburger.addEventListener("click", toggleMenu);
+    
+            // Cerrar menú móvil al hacer clic en un elemento del menú
+            const navLinks = document.querySelectorAll(".nav-item");
+    
+            navLinks.forEach(n => n.addEventListener("click", closeMenu));
+    
+            function closeMenu() {
+                hamburger.classList.remove("active");
+                navMenu.classList.remove("active");
+                navButtonsMenu.classList.remove("active");
+            }
+    
+            // Actualizar los botones de navegación y agregar event listeners nuevamente
+            updateNavButtons();
+            function addNavButtonListeners() {
+                const newNavLinks = document.querySelectorAll(".nav-item");
+                newNavLinks.forEach(n => n.addEventListener("click", closeMenu));
+            }
+            addNavButtonListeners();
+            
+            async function fetchRooms() {
+            try {
+                const response = await fetch('http://localhost:3000/cuartos');
+                rooms = await response.json();
+            } catch (error) {
+                console.error('Error fetching rooms:', error);
+                // You might want to add some error handling here, like displaying a message to the user
+            }
+        }
+        
+            async function fetchUserReservations() {
+                    if (!user) return;
+                    try {
+                        const response = await fetch(`http://localhost:3000/usuarios/${user.id}`);
+                        const userData = await response.json();
+                        user.reservas = userData.reservas;
+                        console.log('User reservations:', user.reservas);
+                        displayUserReservations();
+                    } catch (error) {
+                        console.error('Error fetching user reservations:', error);
+                    }
+                }
+        });
+    
+        function logout() {
+            localStorage.removeItem('user');
+            location.href = 'index.html';
+        }
     </script>
 </body>
 </html>

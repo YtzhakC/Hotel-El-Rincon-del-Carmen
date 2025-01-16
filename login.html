@@ -6,9 +6,68 @@
     <title>Login - Hotel El Rincón del Carmen</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        .texto {
-            text-align: center;
-            margin-top: 1rem;
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+        }
+        .bar {
+            display: block;
+            width: 25px;
+            height: 3px;
+            margin: 5px auto;
+            transition: all 0.3s ease-in-out;
+            background-color: white;
+        }
+        @media (max-width: 768px) {
+            .hamburger {
+                display: block;
+            }
+            .nav-menu {
+                position: fixed;
+                top: 4vh;
+                left: -100%;
+                width: 100%;
+                background-color: #2563eb;
+                text-align: center;
+                transition: 0.3s ease-in-out;
+                z-index: 10;
+            }
+            .nav-menu.active {
+                left: 0;
+                display: flex;
+                flex-direction: column;
+            }
+            #navButtons {
+                position: fixed;
+                top: 21vh;
+                left: -100%;
+                width: 100%;
+                background-color: #2563eb;
+                text-align: center;
+                transition: 0.3s ease-in-out;
+                z-index: 10;
+            }
+            #navButtons.active {
+                left: 0;
+                display: flex;
+                flex-direction: column;
+            }
+            .nav-item {
+                margin: 16px 0;
+            }
+            .desktop-only {
+                display: none;
+            }
+            .hamburger.active .bar:nth-child(2) {
+                opacity: 0;
+            }
+            .hamburger.active .bar:nth-child(1) {
+                transform: translateY(8px) rotate(45deg);
+            }
+            .hamburger.active .bar:nth-child(3) {
+                transform: translateY(-8px) rotate(-45deg);
+            }
         }
     </style>
 </head>
@@ -17,17 +76,17 @@
     <nav class="bg-blue-600 text-white p-4 sticky top-0 shadow-md z-10">
         <div class="container mx-auto flex justify-between items-center">
             <div class="text-lg font-bold">Hotel El Rincón del Carmen</div>
-            <ul class="flex gap-6">
-                <button class="bg-white text-blue-600 px-4 py-2 rounded shadow hover:bg-gray-200"onclick="location.href='index.html'">Inicio</button>
-                <button class="bg-white text-blue-600 px-4 py-2 rounded shadow hover:bg-gray-200"onclick="location.href='login.html'">Login</button>
-                <button class="bg-white text-blue-600 px-4 py-2 rounded shadow hover:bg-gray-200"onclick="location.href='registro.html'">Registro</button>
+            <ul class="flex flex-wrap gap-2 sm:gap-2">
+                <button class="bg-white text-blue-600 px-4 py-2 rounded shadow hover:bg-gray-200" onclick="location.href='index.html'">Inicio</button>
+                <button class="bg-white text-blue-600 px-4 py-2 rounded shadow hover:bg-gray-200" onclick="location.href='login.html'">Login</button>
+                <button class="bg-white text-blue-600 px-4 py-2 rounded shadow hover:bg-gray-200" onclick="location.href='registro.html'">Registro</button>
             </ul>
         </div>
     </nav>
 
     <!-- Formulario de inicio de sesión -->
     <section class="bg-white py-16">
-        <div class="container mx-auto max-w-lg">
+        <div class="container mx-auto max-w-lg px-4">
             <h1 class="text-3xl font-bold text-center mb-6">Inicia sesión</h1>
             <form id="loginForm" class="bg-gray-100 p-6 rounded shadow">
                 <div class="mb-4">
@@ -39,7 +98,7 @@
                     <input type="password" id="password" class="w-full px-4 py-2 border rounded" placeholder="Tu contraseña" required>
                 </div>
                 <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">Iniciar sesión</button>
-                <h1 class="text-red-700 texto justify-center"></h1>
+                <h1 class="text-red-700 texto justify-center mt-4"></h1>
             </form>
         </div>
     </section>
