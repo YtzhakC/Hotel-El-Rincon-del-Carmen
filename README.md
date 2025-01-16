@@ -53,4 +53,4 @@ Este proyecto es un sitio web diseñado para el hotel **El Rincón del Carmen** 
 
 ---
 
-¡Gracias por el interés en este proyecto!
+¡Proyecto Finalizado!, Gracias por el interés en este proyecto!

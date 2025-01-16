@@ -11,12 +11,13 @@
       "capacity": 4,
       "price": 450,
       "image": "https://images.trvl-media.com/lodging/1000000/900000/897400/897380/7e0f1ec4.jpg?impolicy=resizecrop&rw=1200&ra=fit",
-      "status": "available"
+      "status": "available",
+      "beds": 2
     },
     {
       "id": 2,
-      "name": "Cabaña del Bosque",
-      "description": "Sumérjase en la naturaleza con esta acogedora cabaña rústica.",
+      "name": "Suite Rústica",
+      "description": "Ambiente acogedor con toques rústicos para una estancia confortable.",
       "internet": true,
       "jacuzzi": false,
       "minibar": true,
@@ -24,7 +25,8 @@
       "capacity": 2,
       "price": 180,
       "image": "https://images.trvl-media.com/lodging/1000000/40000/34300/34244/5985d42d.jpg?impolicy=resizecrop&rw=1200&ra=fit",
-      "status": "available"
+      "status": "available",
+      "beds": 1
     },
     {
       "id": 3,
@@ -37,7 +39,8 @@
       "capacity": 2,
       "price": 200,
       "image": "https://www.anayjose.com/media/uploads/galeriahabitaciones/twobedroomj.jpg?q=pr:sharp/rs:fill/w:1200/h:500/f:jpg",
-      "status": "available"
+      "status": "available",
+      "beds": 1
     },
     {
       "id": 4,
@@ -50,7 +53,8 @@
       "capacity": 8,
       "price": 600,
       "image": "https://cache.marriott.com/content/dam/marriott-renditions/dm-static-renditions/jw/us-canada/hws/m/mrkfl/en_us/photo/unlimited/assets/jw-mrkfl-corner-suite-40445-classic-hor.jpg",
-      "status": "available"
+      "status": "available",
+      "beds": 4
     },
     {
       "id": 5,
@@ -63,7 +67,8 @@
       "capacity": 2,
       "price": 280,
       "image": "https://images.trvl-media.com/lodging/42000000/41820000/41815500/41815407/b11e06f6.jpg?impolicy=resizecrop&rw=1200&ra=fit",
-      "status": "available"
+      "status": "available",
+      "beds": 1
     },
     {
       "id": 6,
@@ -76,7 +81,8 @@
       "capacity": 6,
       "price": 1200,
       "image": "https://image-tc.galaxy.tf/wijpeg-20bpajtgubj2n0ootk6khvehu/urv4218-m-ok_wide.jpg?width=1200&crop=0%2C78%2C1500%2C844",
-      "status": "available"
+      "status": "available",
+      "beds": 3
     },
     {
       "id": 7,
@@ -89,7 +95,8 @@
       "capacity": 3,
       "price": 220,
       "image": "https://es.ncl.com/sites/default/files/Suites.DlxOwn1.jpg",
-      "status": "available"
+      "status": "available",
+      "beds": 2
     },
     {
       "id": 8,
@@ -102,7 +109,8 @@
       "capacity": 2,
       "price": 350,
       "image": "https://images.trvl-media.com/lodging/1000000/20000/11000/10961/c7613f65.jpg?impolicy=resizecrop&rw=1200&ra=fit",
-      "status": "available"
+      "status": "available",
+      "beds": 1
     },
     {
       "id": 9,
@@ -115,7 +123,8 @@
       "capacity": 4,
       "price": 550,
       "image": "https://images.trvl-media.com/lodging/39000000/38290000/38284800/38284790/e14c8031.jpg?impolicy=resizecrop&rw=1200&ra=fit",
-      "status": "available"
+      "status": "available",
+      "beds": 2
     },
     {
       "id": 10,
@@ -128,7 +137,8 @@
       "capacity": 1,
       "price": 180,
       "image": "https://www.anayjose.com/media/uploads/galeriahabitaciones/twobedroomd.jpg?q=pr:sharp/rs:fill/w:1200/h:500/f:jpg",
-      "status": "available"
+      "status": "available",
+      "beds": 1
     },
     {
       "id": 11,
@@ -141,12 +151,13 @@
       "capacity": 2,
       "price": 260,
       "image": "https://cache.marriott.com/content/dam/marriott-renditions/MRKFL/mrkfl-suite-0284-hor-clsc.jpg",
-      "status": "available"
+      "status": "available",
+      "beds": 1
     },
     {
       "id": 12,
-      "name": "Bungalow Playero",
-      "description": "A pasos de la playa, perfecto para los amantes del sol y el mar.",
+      "name": "Suite Costera",
+      "description": "Decoración inspirada en la playa, perfecta para los amantes del mar.",
       "internet": true,
       "jacuzzi": false,
       "minibar": true,
@@ -154,7 +165,8 @@
       "capacity": 4,
       "price": 320,
       "image": "https://images.trvl-media.com/lodging/38000000/37890000/37881500/37881452/8fb61967.jpg?impolicy=resizecrop&rw=1200&ra=fit",
-      "status": "available"
+      "status": "available",
+      "beds": 2
     },
     {
       "id": 13,
@@ -167,7 +179,8 @@
       "capacity": 2,
       "price": 400,
       "image": "https://image-tc.galaxy.tf/wijpeg-e6pi9ll7wkmtyoxosfgju8opy/urv4229-m-ok_wide.jpg?crop=0%2C78%2C1500%2C844&width=1140",
-      "status": "available"
+      "status": "available",
+      "beds": 1
     },
     {
       "id": 14,
@@ -180,7 +193,8 @@
       "capacity": 2,
       "price": 240,
       "image": "https://es.ncl.com/sites/default/files/Suites.FamilySuite1.jpg",
-      "status": "available"
+      "status": "available",
+      "beds": 1
     },
     {
       "id": 15,
@@ -193,12 +207,13 @@
       "capacity": 2,
       "price": 300,
       "image": "https://billiken.lat/wp-content/uploads/2024/05/cuerpo-8-7.jpg",
-      "status": "available"
+      "status": "available",
+      "beds": 1
     },
     {
       "id": 16,
-      "name": "Cabaña de Montaña",
-      "description": "Acogedora y rústica, perfecta para los amantes de la naturaleza.",
+      "name": "Suite Alpina",
+      "description": "Ambiente acogedor con toques rústicos, ideal para los amantes de la montaña.",
       "internet": true,
       "jacuzzi": true,
       "minibar": false,
@@ -206,12 +221,13 @@
       "capacity": 4,
       "price": 280,
       "image": "https://media.revistaad.es/photos/65c21a5605ba5d3cad2a23ba/16:9/w_3488,h_1962,c_limit/atr.royalmansion-bedroom2-mr.jpg",
-      "status": "available"
+      "status": "available",
+      "beds": 2
     },
     {
       "id": 17,
-      "name": "Glamping de Lujo",
-      "description": "Una experiencia de campamento con todas las comodidades modernas.",
+      "name": "Suite Safari",
+      "description": "Decoración inspirada en la sabana africana con todas las comodidades modernas.",
       "internet": true,
       "jacuzzi": false,
       "minibar": false,
@@ -219,12 +235,13 @@
       "capacity": 2,
       "price": 300,
       "image": "https://www.kayak.com.mx/rimg/himg/a8/ea/45/revato-164798-12856183-550068.jpg?width=1366&height=768&crop=true",
-      "status": "available"
+      "status": "available",
+      "beds": 1
     },
     {
       "id": 18,
-      "name": "Cueva Moderna",
-      "description": "Hospédese en una cueva adaptada con diseño moderno.",
+      "name": "Suite Gruta",
+      "description": "Diseño único inspirado en cuevas naturales con comodidades modernas.",
       "internet": true,
       "jacuzzi": true,
       "minibar": true,
@@ -232,7 +249,8 @@
       "capacity": 2,
       "price": 380,
       "image": "https://www.kayak.com.do/rimg/himg/43/29/e2/ice-64843-107022290-371407.jpg?width=1366&height=768&crop=true",
-      "status": "available"
+      "status": "available",
+      "beds": 1
     },
     {
       "id": 19,
@@ -245,7 +263,8 @@
       "capacity": 2,
       "price": 190,
       "image": "https://www.momondo.cl/himg/be/36/05/leonardo-2678590-Mandarin_Oriental_s_Club_Lounge_O-232422.jpg",
-      "status": "available"
+      "status": "available",
+      "beds": 1
     },
     {
       "id": 20,
@@ -258,7 +277,8 @@
       "capacity": 3,
       "price": 500,
       "image": "https://voyageursintrepides.com/wp-content/uploads/2023/05/plus-beaux-hotels-luxe-5-etoiles-kuala-lumpur.jpg",
-      "status": "available"
+      "status": "available",
+      "beds": 2
     },
     {
       "id": 21,
@@ -271,12 +291,13 @@
       "capacity": 4,
       "price": 420,
       "image": "https://media.admagazine.com/photos/65b927c2857395e101a7a54b/master/w_1600%2Cc_limit/atr.royalmansion-majlis-mr.jpg",
-      "status": "available"
+      "status": "available",
+      "beds": 2
     },
     {
       "id": 22,
-      "name": "Habitación Submarina",
-      "description": "Vistas al océano desde un refugio bajo el agua.",
+      "name": "Suite Acuario",
+      "description": "Habitación temática con vistas a un acuario integrado, creando una atmósfera submarina.",
       "internet": true,
       "jacuzzi": true,
       "minibar": true,
@@ -284,12 +305,13 @@
       "capacity": 2,
       "price": 700,
       "image": "https://media.revistaad.es/photos/65c21a5605ba5d3cad2a23ba/16:9/w_2560%2Cc_limit/atr.royalmansion-bedroom2-mr.jpg",
-      "status": "available"
+      "status": "available",
+      "beds": 1
     },
     {
       "id": 23,
-      "name": "Casa del Árbol",
-      "description": "Una experiencia única en las alturas, rodeado de naturaleza.",
+      "name": "Suite Panorámica",
+      "description": "Ubicada en los pisos superiores, ofrece vistas espectaculares y una experiencia única.",
       "internet": true,
       "jacuzzi": false,
       "minibar": false,
@@ -297,7 +319,8 @@
       "capacity": 2,
       "price": 270,
       "image": "https://media.ambito.com/p/0c5616e28bf58d0403a76b5cc372f420/adjuntos/239/imagenes/036/681/0036681201/1200x675/smart/2jpg.jpg",
-      "status": "available"
+      "status": "available",
+      "beds": 1
     },
     {
       "id": 24,
@@ -310,7 +333,8 @@
       "capacity": 2,
       "price": 350,
       "image": "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/2c/29/81/46/437661-guest-room.jpg?w=1200&h=-1&s=1",
-      "status": "available"
+      "status": "available",
+      "beds": 1
     },
     {
       "id": 25,
@@ -323,27 +347,17 @@
       "capacity": 2,
       "price": 230,
       "image": "https://s3.amazonaws.com/arc-wordpress-client-uploads/infobae-wp/wp-content/uploads/2019/05/20152451/Mandarin-Oriental-Hong-Kong-3.jpg",
-      "status": "available"
+      "status": "available",
+      "beds": 1
     }
   ],
   "usuarios": [
     {
-      "nombre": "Ytzhak Dawidh Carvajal Contreras",
+      "nombre": "Ytzhak",
       "email": "ytzhakcc@gmail.com",
-      "password": "Ytzhak*#2007!",
+      "password": "Ytzhak2007",
+      "reservas": [],
       "id": 1
-    },
-    {
-      "nombre": "Laia Carrillo",
-      "email": "laiacarrilloes@gmail.com",
-      "password": "laia2007",
-      "id": 2
-    },
-    {
-      "nombre": "Daniel Rodríguez",
-      "email": "danrodri1911@gmail.com",
-      "password": "danosaurio",
-      "id": 3
     }
   ]
 }

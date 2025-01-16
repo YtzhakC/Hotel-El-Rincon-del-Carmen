@@ -13,8 +13,8 @@
             <div class="text-lg font-bold">Hotel El Rincón del Carmen</div>
             <ul class="flex gap-6">
                 <button class="bg-white text-blue-600 px-4 py-2 rounded shadow hover:bg-gray-200"onclick="location.href='index.html'">Inicio</button>
-                <button class="bg-white text-blue-600 px-4 py-2 rounded shadow hover:bg-gray-200"onclick="location.href='registro.html'">Registro</button>
                 <button class="bg-white text-blue-600 px-4 py-2 rounded shadow hover:bg-gray-200"onclick="location.href='login.html'">Login</button>
+                <button class="bg-white text-blue-600 px-4 py-2 rounded shadow hover:bg-gray-200"onclick="location.href='registro.html'">Registro</button>
             </ul>
         </div>
     </nav>
@@ -72,7 +72,7 @@
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify({ nombre, email, password }),
+                    body: JSON.stringify({ nombre, email, password, reservas: [] }),
                 });
 
                 if (response.ok) {
