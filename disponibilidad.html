@@ -415,7 +415,7 @@
 
         try {
             // Update room status
-            const roomResponse = await fetch(`http://localhost:3000/cuartos/${roomId}`, {
+            const roomResponse = await fetch(`https://json-server-kfy0.onrender.com/cuartos/${roomId}`, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',
@@ -428,7 +428,7 @@
             }
 
             // Update user reservations
-            const userResponse = await fetch(`http://localhost:3000/usuarios/${user.id}`, {
+            const userResponse = await fetch(`https://json-server-kfy0.onrender.com/usuarios/${user.id}`, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',
