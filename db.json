@@ -11,7 +11,7 @@
       "capacity": 4,
       "price": 450,
       "image": "https://images.trvl-media.com/lodging/1000000/900000/897400/897380/7e0f1ec4.jpg?impolicy=resizecrop&rw=1200&ra=fit",
-      "status": "available",
+      "status": "unavailable",
       "beds": 2
     },
     {
@@ -351,13 +351,5 @@
       "beds": 1
     }
   ],
-  "usuarios": [
-    {
-      "nombre": "Ytzhak",
-      "email": "ytzhakcc@gmail.com",
-      "password": "Ytzhak2007",
-      "reservas": [],
-      "id": 1
-    }
-  ]
+  "usuarios": []
 }

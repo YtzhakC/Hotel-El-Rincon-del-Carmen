@@ -1,3 +1,9 @@
+# INFORMACIÓN IMPORTANTE.
+- El archivo JSON que se encuentra en la carpeta "db", solo es un ejemplo del archivo DataBase que se encuentra hosteado en un repositorio externo.
+- El archivo JSON de base de datos, está alojado en un repositorio privado externo, el cual es hosteado por la página "Render", al momendo de calificar éste proyecto, es preferible avisar al estudiante antes de empezar, para iniciar el host del archivo JSON, ya que siendo un servicio gratis, se apaga por inactividad. Muchas Gracias.
+
+---
+
 # El Rincón del Carmen - Sitio Web
 
 Este proyecto es un sitio web diseñado para el hotel **El Rincón del Carmen** con el objetivo de ampliar su presencia en línea, atraer más clientes y facilitar la gestión de reservas de habitaciones. El sitio web es sencillo, visualmente atractivo y funcional, centrado en la experiencia móvil pero adaptable a otros dispositivos.
@@ -46,13 +52,14 @@ Este proyecto es un sitio web diseñado para el hotel **El Rincón del Carmen** 
 - **GitHub Pages**: Hospedaje del sitio web.
 
 
-
 ---
 
 ```
+
 ¡Proyecto Finalizado!
 
 Muchas Gracias.
 
-- Ytzhak Carvajal 🧐😎😉
+- Ytzhak Carvajal 😎😉
+
 ```
