@@ -157,7 +157,8 @@
             return;
         }
 
-        user.reservas.forEach(roomId => {
+        user.reservas.forEach(roomIdString => {
+            const roomId = parseInt(roomIdString, 10); // Convertir la ID a entero
             const room = rooms.find(r => r.id === roomId);
             console.log('Room found:', room);
             if (room) {
