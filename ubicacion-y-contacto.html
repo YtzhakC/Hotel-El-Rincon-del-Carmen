@@ -22,7 +22,16 @@
             transition: all 0.3s ease-in-out;
             background-color: white;
         }
+        .nav-a{
+            display: flex;
+            justify-content: space-between;
+            margin-right: 2rem;
+        }
         @media (max-width: 768px) {
+
+            .nav-a {
+                margin-right: 0;
+            }
             .hamburger {
                 display: block;
             }
@@ -152,18 +161,18 @@
             function updateNavButtons() {
                 if (user) {
                     navButtons.innerHTML = `
-                        <li class="nav-item text-white pt-3">Bienvenid@, ${user.nombre}</li>
-                        <li class="nav-item"><a href="index.html" class="hover:underline">Inicio</a></li>
-                        <li class="nav-item"><a href="disponibilidad.html" class="hover:underline">Reservas</a></li>
-                        <li class="nav-item"><a href="ubicacion-y-contacto.html" class="hover:underline">Contacto</a></li>
+                        <li class="nav-item text-white nav-a">Bienvenid@, ${user.nombre}</li>
+                        <li class="nav-item nav-a"><a href="index.html" class="hover:underline">Inicio</a></li>
+                        <li class="nav-item nav-a"><a href="disponibilidad.html" class="hover:underline">Reservas</a></li>
+                        <li class="nav-item nav-a"><a href="ubicacion-y-contacto.html" class="hover:underline">Contacto</a></li>
                         <li class="nav-item"><button class="bg-white text-blue-600 px-4 py-2 rounded shadow hover:bg-gray-200" onclick="logout()">Cerrar sesión</button></li>
                         <li class="nav-item"><button class="bg-white text-blue-600 px-4 py-2 rounded shadow hover:bg-gray-200" onclick="redirectTo('panel-usuario.html')">Panel de Usuario</button></li>
                     `;
                 } else {
                     navButtons.innerHTML = `
-                        <li class="nav-item"><a href="index.html" class="hover:underline">Inicio</a></li>
-                        <li class="nav-item"><a href="disponibilidad.html" class="hover:underline">Reservas</a></li>
-                        <li class="nav-item"><a href="ubicacion-y-contacto.html" class="hover:underline">Contacto</a></li>
+                        <li class="nav-item nav-a"><a href="index.html" class="hover:underline">Inicio</a></li>
+                        <li class="nav-item nav-a"><a href="disponibilidad.html" class="hover:underline">Reservas</a></li>
+                        <li class="nav-item nav-a"><a href="ubicacion-y-contacto.html" class="hover:underline">Contacto</a></li>
                         <li class="nav-item"><button class="bg-white text-blue-600 px-4 py-2 rounded shadow hover:bg-gray-200" onclick="redirectTo('registro.html')">Registro</button></li>
                         <li class="nav-item"><button class="bg-white text-blue-600 px-4 py-2 rounded shadow hover:bg-gray-200" onclick="redirectTo('login.html')">Login</button></li>
                     `;

@@ -31,7 +31,16 @@
             transition: all 0.3s ease-in-out;
             background-color: white;
         }
+        .nav-a{
+            display: flex;
+            justify-content: space-between;
+            margin-right: 2rem;
+        }
         @media (max-width: 768px) {
+
+            .nav-a {
+                margin-right: 0;
+            }
             .hamburger {
                 display: block;
             }
@@ -92,7 +101,7 @@
                 <span class="bar"></span>
                 <span class="bar"></span>
             </div>
-            <ul id="navButtons" class="flex gap-2 sm:gap-2 top-12">
+            <ul id="navButtons" class="flex gap-2 sm:gap-2 top-12 items-center">
                 <!-- Los botones se cargarán dinámicamente aquí -->
             </ul>
             <ul class="nav-menu flex flex-wrap gap-2 sm:gap-2 absolute">
@@ -102,7 +111,7 @@
     </nav>
     
     <section id="habitaciones" class="bg-white py-16">
-        <div class="container mx-auto text-center px-4 sm:px-6">
+        <div class="container mx-auto text-center px-4 sm:px-6 ">
             <h1 class="text-4xl font-bold mb-6">Disponibilidad de Habitaciones</h1>
             <div class="mb-6">
                 <select id="filterOptions" class="bg-white border border-gray-300 text-gray-700 py-2 px-4 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
@@ -222,7 +231,7 @@
             const totalPrice = room.price * nights;
 
             const roomElement = document.createElement('div');
-            roomElement.className = 'room-card bg-gray-100 p-6 rounded shadow-md flex items-start space-x-6';
+            roomElement.className = 'room-card bg-gray-100 p-6 rounded shadow-md flex items-start space-x-6 transition-transform duration-500 transform hover:shadow-lg hover:-translate-y-2';
             roomElement.innerHTML = `
     <div class="flex flex-col rounded-lg shadow-lg overflow-hidden">
         <!-- Imagen -->
@@ -292,7 +301,7 @@
             const totalPrice = room.price * nights;
 
             const roomElement = document.createElement('div');
-            roomElement.className = 'room-card bg-gray-100 p-6 rounded shadow-md flex items-start space-x-6';
+            roomElement.className = 'room-card bg-gray-100 p-6 rounded shadow-md flex items-start space-x-6 transition-transform duration-500 transform hover:shadow-lg hover:-translate-y-2';
             roomElement.innerHTML = `
     <div class="flex flex-col rounded-lg shadow-lg overflow-hidden">
         <!-- Imagen -->
@@ -463,12 +472,12 @@
         
         if (user) {
             navButtons.innerHTML = `
-                        <li class="nav-item text-white pt-3">Bienvenid@, ${user.nombre}</li>
-                        <li class="nav-item"><a href="index.html" class="hover:underline">Inicio</a></li>
-                        <li class="nav-item"><a href="disponibilidad.html" class="hover:underline">Reservas</a></li>
-                        <li class="nav-item"><a href="ubicacion-y-contacto.html" class="hover:underline">Contacto</a></li>
+                        <li class="nav-item text-white nav-a">Bienvenid@, ${user.nombre}</li>
+                        <li class="nav-item nav-a"><a href="index.html" class="hover:underline">Inicio</a></li>
+                        <li class="nav-item nav-a"><a href="disponibilidad.html" class="hover:underline">Reservas</a></li>
+                        <li class="nav-item nav-a"><a href="ubicacion-y-contacto.html" class="hover:underline">Contacto</a></li>
                         <li class="nav-item"><button class="bg-white text-blue-600 px-4 py-2 rounded shadow hover:bg-gray-200" onclick="logout()">Cerrar sesión</button></li>
-                        <li class="nav-item"><button class="bg-white text-blue-600 px-4 py-2 rounded shadow hover:bg-gray-200" onclick="location.href='panel-usuario.html'">Panel de Usuario</button></li>
+                        <li class="nav-item"><button class="bg-white text-blue-600 px-4 py-2 rounded shadow hover:bg-gray-200" onclick="redirectTo('panel-usuario.html')">Panel de Usuario</button></li>
                     `;
 
             searchForm.addEventListener('submit', (e) => {
@@ -478,11 +487,11 @@
 
         } else {
             navButtons.innerHTML = `
-                        <li class="nav-item"><a href="index.html" class="hover:underline">Inicio</a></li>
-                        <li class="nav-item"><a href="disponibilidad.html" class="hover:underline">Reservas</a></li>
-                        <li class="nav-item"><a href="ubicacion-y-contacto.html" class="hover:underline">Contacto</a></li>
-                        <li class="nav-item"><button class="bg-white text-blue-600 px-4 py-2 rounded shadow hover:bg-gray-200" onclick="location.href='registro.html'">Registro</button></li>
-                        <li class="nav-item"><button class="bg-white text-blue-600 px-4 py-2 rounded shadow hover:bg-gray-200" onclick="location.href='login.html'">Login</button></li>
+                        <li class="nav-item nav-a"><a href="index.html" class="hover:underline">Inicio</a></li>
+                        <li class="nav-item nav-a"><a href="disponibilidad.html" class="hover:underline">Reservas</a></li>
+                        <li class="nav-item nav-a"><a href="ubicacion-y-contacto.html" class="hover:underline">Contacto</a></li>
+                        <li class="nav-item"><button class="bg-white text-blue-600 px-4 py-2 rounded shadow hover:bg-gray-200" onclick="redirectTo('registro.html')">Registro</button></li>
+                        <li class="nav-item"><button class="bg-white text-blue-600 px-4 py-2 rounded shadow hover:bg-gray-200" onclick="redirectTo('login.html')">Login</button></li>
                     `;
             searchForm.addEventListener('submit', (e) => {
                 e.preventDefault();
@@ -518,18 +527,18 @@
             function updateNavButtons() {
                 if (user) {
                     navButtons.innerHTML = `
-                        <li class="nav-item text-white pt-3">Bienvenid@, ${user.nombre}</li>
-                        <li class="nav-item"><a href="index.html" class="hover:underline">Inicio</a></li>
-                        <li class="nav-item"><a href="disponibilidad.html" class="hover:underline">Reservas</a></li>
-                        <li class="nav-item"><a href="ubicacion-y-contacto.html" class="hover:underline">Contacto</a></li>
+                        <li class="nav-item text-white nav-a">Bienvenid@, ${user.nombre}</li>
+                        <li class="nav-item nav-a"><a href="index.html" class="hover:underline">Inicio</a></li>
+                        <li class="nav-item nav-a"><a href="disponibilidad.html" class="hover:underline">Reservas</a></li>
+                        <li class="nav-item nav-a"><a href="ubicacion-y-contacto.html" class="hover:underline">Contacto</a></li>
                         <li class="nav-item"><button class="bg-white text-blue-600 px-4 py-2 rounded shadow hover:bg-gray-200" onclick="logout()">Cerrar sesión</button></li>
                         <li class="nav-item"><button class="bg-white text-blue-600 px-4 py-2 rounded shadow hover:bg-gray-200" onclick="redirectTo('panel-usuario.html')">Panel de Usuario</button></li>
                     `;
                 } else {
                     navButtons.innerHTML = `
-                        <li class="nav-item"><a href="index.html" class="hover:underline">Inicio</a></li>
-                        <li class="nav-item"><a href="disponibilidad.html" class="hover:underline">Reservas</a></li>
-                        <li class="nav-item"><a href="ubicacion-y-contacto.html" class="hover:underline">Contacto</a></li>
+                        <li class="nav-item nav-a"><a href="index.html" class="hover:underline">Inicio</a></li>
+                        <li class="nav-item nav-a"><a href="disponibilidad.html" class="hover:underline">Reservas</a></li>
+                        <li class="nav-item nav-a"><a href="ubicacion-y-contacto.html" class="hover:underline">Contacto</a></li>
                         <li class="nav-item"><button class="bg-white text-blue-600 px-4 py-2 rounded shadow hover:bg-gray-200" onclick="redirectTo('registro.html')">Registro</button></li>
                         <li class="nav-item"><button class="bg-white text-blue-600 px-4 py-2 rounded shadow hover:bg-gray-200" onclick="redirectTo('login.html')">Login</button></li>
                     `;
@@ -539,7 +548,6 @@
             // Llamar a funciones adicionales si el usuario está presente
             if (user) {
                 await fetchRooms();
-                await fetchUserReservations();
             } else if (document.getElementById('userReservations')) {
                 document.getElementById('userReservations').innerHTML = '<p class="text-xl">Por favor, inicia sesión para ver tus reservas.</p>';
             }
@@ -584,30 +592,20 @@
                 rooms = await response.json();
             } catch (error) {
                 console.error('Error fetching rooms:', error);
-                // You might want to add some error handling here, like displaying a message to the user
             }
         }
         
-            async function fetchUserReservations() {
-                    if (!user) return;
-                    try {
-                        const response = await fetch(`https://json-server-kfy0.onrender.com/usuario/${user.id}`);
-                        const userData = await response.json();
-                        user.reservas = userData.reservas;
-                        console.log('User reservations:', user.reservas);
-                        displayUserReservations();
-                    } catch (error) {
-                        console.error('Error fetching user reservations:', error);
-                    }
-                }
-        });
+            
     
         function logout() {
             localStorage.removeItem('user');
             location.href = 'index.html';
         }
 
-        function redirectTo(page) {
+        
+    });
+
+    function redirectTo(page) {
             localStorage.setItem('redirectAfterLogin', window.location.href);
             window.location.href = page;
         }
