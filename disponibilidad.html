@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hotel El Rincón del Carmen - Disponibilidad</title>
+    <title>Disponibilidad - Hotel El Rincón del Carmen</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         html {
@@ -148,7 +148,7 @@
     <div id="importantInfoModal" class="modal fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 opacity-0 pointer-events-none">
         <div class="modal-content bg-white p-8 rounded-lg shadow-xl transform scale-95 transition-transform duration-300 w-full max-w-md">
             <h2 class="text-3xl font-bold mb-4 text-red-600">¡IMPORTANTE!</h2>
-            <p class="mb-4">La hora de check in a las habitaciones será a las 14:00 del día...</p>
+            <p class="mb-4">La hora de check in a las habitaciones será a las 14:00 del día. Si el usuario no hace efectiva la reserva dos horas después de que inicie el check in (16:00) la habitación quedará disponible para que otra persona la pueda tomar..</p>
             <div class="flex items-center mb-4">
                 <input type="checkbox" id="termsCheckbox" class="mr-2">
                 <label for="termsCheckbox">Acepto los términos y condiciones</label>
@@ -448,8 +448,8 @@
 
             alert('Reserva confirmada. ¡Gracias por elegir nuestro hotel!');
             hideImportantInfoModal();
-            await fetchRooms(); // Refresh the room list
-            performSearch(); // Update the displayed rooms
+            await fetchRooms();
+            performSearch();
         } catch (error) {
             console.error('Error making reservation:', error);
         }
@@ -523,15 +523,15 @@
                         <li class="nav-item"><a href="disponibilidad.html" class="hover:underline">Reservas</a></li>
                         <li class="nav-item"><a href="ubicacion-y-contacto.html" class="hover:underline">Contacto</a></li>
                         <li class="nav-item"><button class="bg-white text-blue-600 px-4 py-2 rounded shadow hover:bg-gray-200" onclick="logout()">Cerrar sesión</button></li>
-                        <li class="nav-item"><button class="bg-white text-blue-600 px-4 py-2 rounded shadow hover:bg-gray-200" onclick="location.href='panel-usuario.html'">Panel de Usuario</button></li>
+                        <li class="nav-item"><button class="bg-white text-blue-600 px-4 py-2 rounded shadow hover:bg-gray-200" onclick="redirectTo('panel-usuario.html')">Panel de Usuario</button></li>
                     `;
                 } else {
                     navButtons.innerHTML = `
                         <li class="nav-item"><a href="index.html" class="hover:underline">Inicio</a></li>
                         <li class="nav-item"><a href="disponibilidad.html" class="hover:underline">Reservas</a></li>
                         <li class="nav-item"><a href="ubicacion-y-contacto.html" class="hover:underline">Contacto</a></li>
-                        <li class="nav-item"><button class="bg-white text-blue-600 px-4 py-2 rounded shadow hover:bg-gray-200" onclick="location.href='registro.html'">Registro</button></li>
-                        <li class="nav-item"><button class="bg-white text-blue-600 px-4 py-2 rounded shadow hover:bg-gray-200" onclick="location.href='login.html'">Login</button></li>
+                        <li class="nav-item"><button class="bg-white text-blue-600 px-4 py-2 rounded shadow hover:bg-gray-200" onclick="redirectTo('registro.html')">Registro</button></li>
+                        <li class="nav-item"><button class="bg-white text-blue-600 px-4 py-2 rounded shadow hover:bg-gray-200" onclick="redirectTo('login.html')">Login</button></li>
                     `;
                 }
             }
@@ -606,7 +606,11 @@
             localStorage.removeItem('user');
             location.href = 'index.html';
         }
+
+        function redirectTo(page) {
+            localStorage.setItem('redirectAfterLogin', window.location.href);
+            window.location.href = page;
+        }
     </script>
 </body>
 </html>
-

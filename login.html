@@ -125,7 +125,8 @@
 
                 if (user) {
                     localStorage.setItem('user', JSON.stringify(user));
-                    window.location.href = 'index.html';
+                    const redirectUrl = localStorage.getItem('redirectAfterLogin') || 'index.html';
+                    window.location.href = redirectUrl;
                 } else {
                     texto.textContent = 'Credenciales incorrectas';
                     setTimeout(() => {
@@ -144,4 +145,3 @@
     </script>
 </body>
 </html>
-
