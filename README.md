@@ -45,11 +45,7 @@ Este proyecto es un sitio web diseñado para el hotel **El Rincón del Carmen** 
 - **json-server**: Simulación del backend.
 - **GitHub Pages**: Hospedaje del sitio web.
 
-## Futuras Mejoras
 
-- Integración con pasarelas de pago.
-- Implementación de un sistema de opinión y calificación de clientes.
-- Mayor personalización en el diseño según las preferencias de usuarios.
 
 ---
 

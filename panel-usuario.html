@@ -29,7 +29,7 @@
             .nav-menu {
                 position: fixed;
                 top: 4vh;
-                left: -100%;
+                left: -200%;
                 width: 100%;
                 background-color: #2563eb;
                 text-align: center;
@@ -43,8 +43,7 @@
             }
             #navButtons {
                 position: fixed;
-                top: 21vh;
-                left: -100%;
+                left: -200%;
                 width: 100%;
                 background-color: #2563eb;
                 text-align: center;
@@ -84,13 +83,11 @@
                 <span class="bar"></span>
                 <span class="bar"></span>
             </div>
-            <ul class="nav-menu flex flex-wrap gap-2 sm:gap-2">
-                <li class="nav-item"><a href="index.html" class="hover:underline">Inicio</a></li>
-                <li class="nav-item"><a href="disponibilidad.html" class="hover:underline">Reservas</a></li>
-                <li class="nav-item"><a href="ubicacion-y-contacto.html" class="hover:underline">Contacto</a></li>
-            </ul>
-            <ul id="navButtons" class="flex gap-2 sm:gap-2">
+            <ul id="navButtons" class="flex gap-2 sm:gap-2 top-12">
                 <!-- Los botones se cargarán dinámicamente aquí -->
+            </ul>
+            <ul class="nav-menu flex flex-wrap gap-2 sm:gap-2 absolute">
+                
             </ul>
         </div>
     </nav>
@@ -120,21 +117,27 @@
     <script>
         let rooms = [];
         let user = null;
-
+    
         async function fetchRooms() {
             try {
                 const response = await fetch('http://localhost:3000/cuartos');
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
                 rooms = await response.json();
                 console.log('Rooms fetched:', rooms);
             } catch (error) {
                 console.error('Error fetching rooms:', error);
             }
         }
-
+    
         async function fetchUserReservations() {
             if (!user) return;
             try {
                 const response = await fetch(`http://localhost:3000/usuarios/${user.id}`);
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
                 const userData = await response.json();
                 user.reservas = userData.reservas;
                 console.log('User reservations:', user.reservas);
@@ -143,16 +146,16 @@
                 console.error('Error fetching user reservations:', error);
             }
         }
-
+    
         function displayUserReservations() {
             const container = document.getElementById('reservationContainer');
             container.innerHTML = '';
-
+    
             if (!user || !user.reservas || user.reservas.length === 0) {
                 container.innerHTML = '<p class="text-xl">No tienes reservas actualmente.</p>';
                 return;
             }
-
+    
             user.reservas.forEach(roomIdString => {
                 const roomId = parseInt(roomIdString, 10);
                 const room = rooms.find(r => r.id === roomId);
@@ -172,7 +175,7 @@
                 }
             });
         }
-
+    
         async function cancelReservation(roomId) {
             try {
                 // Update room status
@@ -183,11 +186,11 @@
                     },
                     body: JSON.stringify({ status: 'available' }),
                 });
-
+    
                 if (!roomResponse.ok) {
                     throw new Error('Failed to update room status');
                 }
-
+    
                 // Update user reservations
                 user.reservas = user.reservas.filter(id => id !== roomId.toString());
                 const userResponse = await fetch(`http://localhost:3000/usuarios/${user.id}`, {
@@ -199,14 +202,14 @@
                         reservas: user.reservas,
                     }),
                 });
-
+    
                 if (!userResponse.ok) {
                     throw new Error('Failed to update user reservations');
                 }
-
+    
                 // Update local storage
                 localStorage.setItem('user', JSON.stringify(user));
-
+    
                 alert('Reserva cancelada exitosamente.');
                 displayUserReservations();
             } catch (error) {
@@ -214,12 +217,12 @@
                 alert('Hubo un error al cancelar la reserva. Por favor, inténtelo de nuevo.');
             }
         }
-
+    
         async function deleteAccount() {
             if (!confirm('¿Estás seguro de que quieres eliminar tu cuenta? Esta acción no se puede deshacer.')) {
                 return;
             }
-
+    
             try {
                 // Cancel all reservations
                 for (const roomId of user.reservas) {
@@ -231,16 +234,16 @@
                         body: JSON.stringify({ status: 'available' }),
                     });
                 }
-
+    
                 // Delete user from database
                 const response = await fetch(`http://localhost:3000/usuarios/${user.id}`, {
                     method: 'DELETE',
                 });
-
+    
                 if (!response.ok) {
                     throw new Error('Failed to delete user account');
                 }
-
+    
                 // Clear local storage and redirect to home page
                 localStorage.removeItem('user');
                 alert('Tu cuenta ha sido eliminada exitosamente.');
@@ -250,11 +253,11 @@
                 alert('Hubo un error al eliminar la cuenta. Por favor, inténtelo de nuevo.');
             }
         }
-
+    
         document.addEventListener('DOMContentLoaded', async function() {
             user = JSON.parse(localStorage.getItem('user'));
             const navButtons = document.getElementById('navButtons');
-
+    
             if (user) {
                 navButtons.innerHTML = `
                     <li class="text-white pt-3">Bienvenid@, ${user.nombre}</li>
@@ -269,10 +272,10 @@
                 `;
                 document.getElementById('userReservations').innerHTML = '<p class="text-xl">Por favor, inicia sesión para ver tus reservas.</p>';
             }
-
+    
             document.getElementById('deleteAccountBtn').addEventListener('click', deleteAccount);
         });
-
+    
         document.addEventListener('DOMContentLoaded', async function () {
             const user = JSON.parse(localStorage.getItem('user'));
             const navButtons = document.getElementById('navButtons');
@@ -284,12 +287,18 @@
             function updateNavButtons() {
                 if (user) {
                     navButtons.innerHTML = `
-                        <li class="nav-item text-white pt-3 desktop-only">Bienvenid@, ${user.nombre}</li>
+                        <li class="nav-item text-white pt-3">Bienvenid@, ${user.nombre}</li>
+                        <li class="nav-item"><a href="index.html" class="hover:underline">Inicio</a></li>
+                        <li class="nav-item"><a href="disponibilidad.html" class="hover:underline">Reservas</a></li>
+                        <li class="nav-item"><a href="ubicacion-y-contacto.html" class="hover:underline">Contacto</a></li>
                         <li class="nav-item"><button class="bg-white text-blue-600 px-4 py-2 rounded shadow hover:bg-gray-200" onclick="logout()">Cerrar sesión</button></li>
                         <li class="nav-item"><button class="bg-white text-blue-600 px-4 py-2 rounded shadow hover:bg-gray-200" onclick="location.href='panel-usuario.html'">Panel de Usuario</button></li>
                     `;
                 } else {
                     navButtons.innerHTML = `
+                        <li class="nav-item"><a href="index.html" class="hover:underline">Inicio</a></li>
+                        <li class="nav-item"><a href="disponibilidad.html" class="hover:underline">Reservas</a></li>
+                        <li class="nav-item"><a href="ubicacion-y-contacto.html" class="hover:underline">Contacto</a></li>
                         <li class="nav-item"><button class="bg-white text-blue-600 px-4 py-2 rounded shadow hover:bg-gray-200" onclick="location.href='registro.html'">Registro</button></li>
                         <li class="nav-item"><button class="bg-white text-blue-600 px-4 py-2 rounded shadow hover:bg-gray-200" onclick="location.href='login.html'">Login</button></li>
                     `;
@@ -310,7 +319,6 @@
                 deleteAccountBtn.addEventListener('click', deleteAccount);
             }
     
-            // Funcionalidad del menú hamburguesa
             function toggleMenu() {
                 hamburger.classList.toggle("active");
                 navMenu.classList.toggle("active");
@@ -319,7 +327,6 @@
     
             hamburger.addEventListener("click", toggleMenu);
     
-            // Cerrar menú móvil al hacer clic en un elemento del menú
             const navLinks = document.querySelectorAll(".nav-item");
     
             navLinks.forEach(n => n.addEventListener("click", closeMenu));
@@ -330,36 +337,12 @@
                 navButtonsMenu.classList.remove("active");
             }
     
-            // Actualizar los botones de navegación y agregar event listeners nuevamente
             updateNavButtons();
             function addNavButtonListeners() {
                 const newNavLinks = document.querySelectorAll(".nav-item");
                 newNavLinks.forEach(n => n.addEventListener("click", closeMenu));
             }
             addNavButtonListeners();
-            
-            async function fetchRooms() {
-            try {
-                const response = await fetch('http://localhost:3000/cuartos');
-                rooms = await response.json();
-            } catch (error) {
-                console.error('Error fetching rooms:', error);
-                // You might want to add some error handling here, like displaying a message to the user
-            }
-        }
-        
-            async function fetchUserReservations() {
-                    if (!user) return;
-                    try {
-                        const response = await fetch(`http://localhost:3000/usuarios/${user.id}`);
-                        const userData = await response.json();
-                        user.reservas = userData.reservas;
-                        console.log('User reservations:', user.reservas);
-                        displayUserReservations();
-                    } catch (error) {
-                        console.error('Error fetching user reservations:', error);
-                    }
-                }
         });
     
         function logout() {

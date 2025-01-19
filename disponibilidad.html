@@ -38,7 +38,7 @@
             .nav-menu {
                 position: fixed;
                 top: 4vh;
-                left: -100%;
+                left: -200%;
                 width: 100%;
                 background-color: #2563eb;
                 text-align: center;
@@ -52,8 +52,7 @@
             }
             #navButtons {
                 position: fixed;
-                top: 21vh;
-                left: -100%;
+                left: -200%;
                 width: 100%;
                 background-color: #2563eb;
                 text-align: center;
@@ -93,13 +92,11 @@
                 <span class="bar"></span>
                 <span class="bar"></span>
             </div>
-            <ul class="nav-menu flex flex-wrap gap-2 sm:gap-2">
-                <li class="nav-item"><a href="index.html" class="hover:underline">Inicio</a></li>
-                <li class="nav-item"><a href="disponibilidad.html" class="hover:underline">Reservas</a></li>
-                <li class="nav-item"><a href="ubicacion-y-contacto.html" class="hover:underline">Contacto</a></li>
-            </ul>
-            <ul id="navButtons" class="flex gap-2 sm:gap-2">
+            <ul id="navButtons" class="flex gap-2 sm:gap-2 top-12">
                 <!-- Los botones se cargarán dinámicamente aquí -->
+            </ul>
+            <ul class="nav-menu flex flex-wrap gap-2 sm:gap-2 absolute">
+                
             </ul>
         </div>
     </nav>
@@ -466,10 +463,13 @@
         
         if (user) {
             navButtons.innerHTML = `
-                <li class="text-white pt-3">Bienvenid@, ${user.nombre}</li>
-                <button class="bg-white text-blue-600 px-4 py-2 rounded shadow hover:bg-gray-200" onclick="logout()">Cerrar sesión</button>
-                <button class="bg-white text-blue-600 px-4 py-2 rounded shadow hover:bg-gray-200" onclick="location.href='panel-usuario.html'">Panel de Usuario</button>
-            `;
+                        <li class="nav-item text-white pt-3">Bienvenid@, ${user.nombre}</li>
+                        <li class="nav-item"><a href="index.html" class="hover:underline">Inicio</a></li>
+                        <li class="nav-item"><a href="disponibilidad.html" class="hover:underline">Reservas</a></li>
+                        <li class="nav-item"><a href="ubicacion-y-contacto.html" class="hover:underline">Contacto</a></li>
+                        <li class="nav-item"><button class="bg-white text-blue-600 px-4 py-2 rounded shadow hover:bg-gray-200" onclick="logout()">Cerrar sesión</button></li>
+                        <li class="nav-item"><button class="bg-white text-blue-600 px-4 py-2 rounded shadow hover:bg-gray-200" onclick="location.href='panel-usuario.html'">Panel de Usuario</button></li>
+                    `;
 
             searchForm.addEventListener('submit', (e) => {
                 e.preventDefault();
@@ -478,9 +478,12 @@
 
         } else {
             navButtons.innerHTML = `
-                <button class="bg-white text-blue-600 px-4 py-2 rounded shadow hover:bg-gray-200" onclick="location.href='registro.html'">Registro</button>
-                <button class="bg-white text-blue-600 px-4 py-2 rounded shadow hover:bg-gray-200" onclick="location.href='login.html'">Login</button>
-            `;
+                        <li class="nav-item"><a href="index.html" class="hover:underline">Inicio</a></li>
+                        <li class="nav-item"><a href="disponibilidad.html" class="hover:underline">Reservas</a></li>
+                        <li class="nav-item"><a href="ubicacion-y-contacto.html" class="hover:underline">Contacto</a></li>
+                        <li class="nav-item"><button class="bg-white text-blue-600 px-4 py-2 rounded shadow hover:bg-gray-200" onclick="location.href='registro.html'">Registro</button></li>
+                        <li class="nav-item"><button class="bg-white text-blue-600 px-4 py-2 rounded shadow hover:bg-gray-200" onclick="location.href='login.html'">Login</button></li>
+                    `;
             searchForm.addEventListener('submit', (e) => {
                 e.preventDefault();
                 performSearchU();
@@ -515,12 +518,18 @@
             function updateNavButtons() {
                 if (user) {
                     navButtons.innerHTML = `
-                        <li class="nav-item text-white pt-3 desktop-only">Bienvenid@, ${user.nombre}</li>
+                        <li class="nav-item text-white pt-3">Bienvenid@, ${user.nombre}</li>
+                        <li class="nav-item"><a href="index.html" class="hover:underline">Inicio</a></li>
+                        <li class="nav-item"><a href="disponibilidad.html" class="hover:underline">Reservas</a></li>
+                        <li class="nav-item"><a href="ubicacion-y-contacto.html" class="hover:underline">Contacto</a></li>
                         <li class="nav-item"><button class="bg-white text-blue-600 px-4 py-2 rounded shadow hover:bg-gray-200" onclick="logout()">Cerrar sesión</button></li>
                         <li class="nav-item"><button class="bg-white text-blue-600 px-4 py-2 rounded shadow hover:bg-gray-200" onclick="location.href='panel-usuario.html'">Panel de Usuario</button></li>
                     `;
                 } else {
                     navButtons.innerHTML = `
+                        <li class="nav-item"><a href="index.html" class="hover:underline">Inicio</a></li>
+                        <li class="nav-item"><a href="disponibilidad.html" class="hover:underline">Reservas</a></li>
+                        <li class="nav-item"><a href="ubicacion-y-contacto.html" class="hover:underline">Contacto</a></li>
                         <li class="nav-item"><button class="bg-white text-blue-600 px-4 py-2 rounded shadow hover:bg-gray-200" onclick="location.href='registro.html'">Registro</button></li>
                         <li class="nav-item"><button class="bg-white text-blue-600 px-4 py-2 rounded shadow hover:bg-gray-200" onclick="location.href='login.html'">Login</button></li>
                     `;
