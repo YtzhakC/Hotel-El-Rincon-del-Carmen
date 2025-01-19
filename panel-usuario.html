@@ -147,34 +147,35 @@
             }
         }
     
-        function displayUserReservations() {
-            const container = document.getElementById('reservationContainer');
-            container.innerHTML = '';
-    
-            if (!user || !user.reservas || user.reservas.length === 0) {
-                container.innerHTML = '<p class="text-xl">No tienes reservas actualmente.</p>';
-                return;
-            }
-    
-            user.reservas.forEach(roomIdString => {
-                const roomId = parseInt(roomIdString, 10);
-                const room = rooms.find(r => r.id === roomId);
-                console.log('Room found:', room);
-                if (room) {
-                    const roomElement = document.createElement('div');
-                    roomElement.className = 'room-card bg-white p-6 rounded shadow-md flex flex-col';
-                    roomElement.innerHTML = `
-                        <h2 class="font-bold text-2xl mb-2">${room.name}</h2>
-                        <p class="text-gray-600 mb-4">${room.description}</p>
-                        <p class="text-lg font-semibold mb-2">Precio por noche: $${room.price} USD</p>
-                        <button class="bg-red-600 text-white px-4 py-2 rounded shadow hover:bg-red-700 mt-auto" onclick="cancelReservation('${roomId}')">Cancelar Reserva</button>
-                    `;
-                    container.appendChild(roomElement);
-                } else {
-                    console.error('Room not found for ID:', roomId);
-                }
-            });
+
+    function displayUserReservations() {
+        const container = document.getElementById('reservationContainer');
+        container.innerHTML = '';
+
+        if (!user || !user.reservas || user.reservas.length === 0) {
+            container.innerHTML = '<p class="text-xl">No tienes reservas actualmente.</p>';
+            return;
         }
+
+        user.reservas.forEach(roomId => {
+            const room = rooms.find(r => r.id === roomId);
+            console.log('Room found:', room);
+            if (room) {
+                const roomElement = document.createElement('div');
+                roomElement.className = 'room-card bg-white p-6 rounded shadow-md flex flex-col';
+                roomElement.innerHTML = `
+                    <h2 class="font-bold text-2xl mb-2">${room.name}</h2>
+                    <p class="text-gray-600 mb-4">${room.description}</p>
+                    <p class="text-lg font-semibold mb-2">Precio por noche: $${room.price} USD</p>
+                    <button class="bg-red-600 text-white px-4 py-2 rounded shadow hover:bg-red-700 mt-auto" onclick="cancelReservation(${roomId})">Cancelar Reserva</button>
+                `;
+                container.appendChild(roomElement);
+            } else {
+                console.error('Room not found for ID:', roomId);
+            }
+        });
+    }
+
     
         async function cancelReservation(roomId) {
             try {
